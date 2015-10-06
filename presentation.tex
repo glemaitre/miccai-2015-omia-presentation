@@ -161,15 +161,15 @@
       \begin{column}{.5\linewidth}
         \begin{figure}
           \centering
-          \includegraphics[width=.4\textwidth]{./images/global-2d.png}
-          %\caption{Raw image}
+          \includegraphics[width=.3\textwidth]{./images/global-2d.png}
+          \caption{2D}
         \end{figure}
       \end{column}
       \begin{column}{.5\linewidth}
         \begin{figure}
           \centering
-          \includegraphics[width=.4\textwidth]{./images/global-3d.png}
-          %\caption{NLM denoising}
+          \includegraphics[width=.3\textwidth]{./images/global-3d.png}
+          \caption{3D}
         \end{figure}
       \end{column}
     \end{columns}
@@ -179,15 +179,15 @@
       \begin{column}{.5\linewidth}
         \begin{figure}
           \centering
-          \includegraphics[width=.4\textwidth]{./images/local-2d.png}
-          %\caption{Raw image}
+          \includegraphics[width=.3\textwidth]{./images/local-2d.png}
+          \caption{2D}
         \end{figure}
       \end{column}
       \begin{column}{.5\linewidth}
         \begin{figure}
           \centering
-          \includegraphics[width=.4\textwidth]{./images/local-3d.png}
-          %\caption{NLM denoising}
+          \includegraphics[width=.3\textwidth]{./images/local-3d.png}
+          \caption{3D}
         \end{figure}
       \end{column}
     \end{columns}
@@ -243,33 +243,81 @@
     \vspace{-.6cm}
     \begin{columns}
       \begin{column}{.5\linewidth}
-        \begin{center}
-          Global mapping
-        \end{center}
-        \begin{description}\footnotesize
-          \item[LBP] Concatenation of histogram per B-scan
-          \item[LBP-TOP] Concatenation 
-        \end{description}
-        \begin{itemize}
-          \item 1 LBP histogram per B-scan
-        \end{itemize}
-      \end{column}
+        \begin{figure}
+          \centering
+          \includegraphics[width=.4\textwidth]{./images/lbp-hist.png}
+          \caption{LBP histogram}
+        \end{figure}
+       \end{column}
       \begin{column}{.5\linewidth}
-        \begin{center}
-          Local mapping
-        \end{center}
-        \begin{itemize}
-          \item 1 LBP histogram per window
+        \begin{figure}
+          \centering
+          \includegraphics[width=.5\textwidth]{./images/LBPTOP_fig.png}
+          \caption{LBP-TOP histogram}
+        \end{figure}
+      \end{column}
+    \end{columns}
+  \end{block}
+  \begin{block}{Global \textit{versus} local mapping}
+    \begin{columns}
+      \begin{column}{.5\linewidth}
+        \begin{itemize}\footnotesize
+        \item 1 LBP histogram per \emph{B-scan} later concatenated
+        \item 1 LBP-TOP histogram per \emph{volume}
+        \end{itemize}
+       \end{column}
+      \begin{column}{.5\linewidth}
+        \begin{itemize}\footnotesize
+        \item 1 LBP histogram per \emph{window} later concatenated
+        \item 1 LBP-TOP histogram per \emph{sub-volume} later concatenated
         \end{itemize}
       \end{column}
     \end{columns}
   \end{block}
-  \begin{block}{High-level representation}
-    \begin{figure}
-      \centering
-      \includegraphics[width=.4\textwidth]{./images/LBPTOP_fig.png}
-      % \caption{Raw image}
-    \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{DME Detection}
+  \framesubtitle{Feature representation}
+  \begin{block}{High-level representation}\footnotesize
+    \begin{itemize}
+      \item Principal Component Analysis (PCA)
+      \item Bag of Words (BoW)
+    \end{itemize}
+  \end{block}
+  \begin{block}{PCA}
+    \begin{itemize}\footnotesize
+      \item Reduce the number of feature dimensions by finding a space where the data variance is maximized
+    \end{itemize}
+  \end{block}
+  \begin{block}{BoW}
+    \begin{itemize}\footnotesize
+      \item Reduce the complexity of the feature space by clustering samples together
+      \item A codebook is learnt through k-means
+      \item Each sample is affected to a specific cluster/word (i.e., hard-voting)
+      \item Histogram by calculating the frequency of occurrences of each word 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Experiments}
+
+\subsection{Datasets}
+
+\begin{frame}
+  \frametitle{Experiments}
+  \framesubtitle{Datasets}
+  \begin{block}{SERI dataset}\footnotesize
+    \begin{itemize}
+      \item 32 SD-OCT images with 16 DME cases and 16 healthy cases
+      \item Each volume has 128 B-scans with a resolution of $512 \times 1024$ pixels
+    \end{itemize}
+  \end{block}
+  \begin{block}{Duke dataset}
+    \begin{itemize}\footnotesize
+      \item 30 SD-OCT images with 15 DME cases and 15 healthy cases
+      \item Volumes were denoised and cropped with different sizes
+    \end{itemize}
   \end{block}
 \end{frame}
 
